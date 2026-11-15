@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSA Practical Exam Guide</title>
+<style>
+body{font-family:Arial,sans-serif;line-height:1.5;margin:0;background:#f4f6fb;color:#202536}
+header{background:#263b80;color:white;padding:25px 5%;}h1{margin:0 0 8px}
+main{max-width:1000px;margin:24px auto;padding:0 16px}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+nav a,.btn{background:#e5eaff;color:#243879;padding:8px 12px;border-radius:8px;text-decoration:none;border:0;cursor:pointer}
+section{background:white;padding:20px;margin:16px 0;border-radius:12px;box-shadow:0 2px 8px #0001}
+pre{background:#171d2b;color:#e9efff;padding:16px;border-radius:8px;overflow:auto;white-space:pre}
+h2{color:#263b80}h3{margin-bottom:5px}.viva li{margin:8px 0}
+input{padding:11px;width:min(500px,90%);border:1px solid #bbb;border-radius:8px}
+.small{color:#596174}
+</style>
+<script>
+function copyCode(id){let t=document.getElementById(id).innerText;navigator.clipboard.writeText(t).then(()=>alert('Code copied!'))}
+function filterSections(){let q=document.getElementById('search').value.toLowerCase();document.querySelectorAll('section').forEach(s=>s.style.display=s.innerText.toLowerCase().includes(q)?'':'none')}
+</script>
+</head>
+<body>
+<header><h1>DSA Practical Exam Guide</h1><div>10 practicals • C programs • Quick viva questions</div></header>
+<main>
+<p class="small">Beginner-friendly revision guide. Use your college lab manual if its required program differs from these standard versions.</p>
+<input id="search" oninput="filterSections()" placeholder="Search practical, code topic or viva question...">
+<nav>
+<a href="#p1">1 Search</a><a href="#p2">2 Sort</a><a href="#p3">3 Student DB</a><a href="#p4">4 Stack</a><a href="#p5">5 Linked List</a><a href="#p6">6 Patterns</a><a href="#p7">7 Queue</a><a href="#p8">8 Tree Height</a><a href="#p9">9 BST</a><a href="#p10">10 BFS/DFS</a>
+</nav>
+
+<section id="p1"><h2>1. Searching Techniques</h2><h3>Linear Search and Binary Search</h3>
+<p>Linear search checks each element. Binary search works only on a sorted array.</p>
+<button class="btn" onclick="copyCode('c1')">Copy code</button>
+<pre id="c1">#include &lt;stdio.h&gt;
+int main() {
+    int a[100], n, key, i, found = 0;
+    printf("Enter number of elements: ");
+    scanf("%d", &amp;n);
+    printf("Enter elements: ");
+    for(i=0;i&lt;n;i++) scanf("%d",&amp;a[i]);
+    printf("Enter element to search: ");
+    scanf("%d",&amp;key);
+    for(i=0;i&lt;n;i++) {
+        if(a[i] == key) { found=1; break; }
+    }
+    if(found) printf("Element found at position %d",i+1);
+    else printf("Element not found");
+    return 0;
+}</pre>
+<ul class="viva"><li><b>What is searching?</b> Finding the location of a required element.</li><li><b>Linear search?</b> Checks elements one by one.</li><li><b>Binary search condition?</b> Array must be sorted.</li><li><b>Linear search time complexity?</b> O(n).</li><li><b>Binary search time complexity?</b> O(log n).</li></ul></section>
+
+<section id="p2"><h2>2. Sorting Algorithms</h2><h3>Bubble Sort (ascending)</h3>
+<button class="btn" onclick="copyCode('c2')">Copy code</button>
+<pre id="c2">#include &lt;stdio.h&gt;
+int main() {
+    int a[100], n, i, j, temp;
+    printf("Enter number of elements: ");
+    scanf("%d",&amp;n);
+    printf("Enter elements: ");
+    for(i=0;i&lt;n;i++) scanf("%d",&amp;a[i]);
+    for(i=0;i&lt;n-1;i++) {
+        for(j=0;j&lt;n-i-1;j++) {
+            if(a[j] &gt; a[j+1]) {
+                temp=a[j]; a[j]=a[j+1]; a[j+1]=temp;
+            }
+        }
+    }
+    printf("Sorted array: ");
+    for(i=0;i&lt;n;i++) printf("%d ",a[i]);
+    return 0;
+}</pre>
+<ul class="viva"><li><b>What is sorting?</b> Arranging data in ascending or descending order.</li><li><b>What is Bubble Sort?</b> Repeatedly compares adjacent elements and swaps them if needed.</li><li><b>Bubble Sort average/worst time?</b> O(n²).</li><li><b>What is swapping?</b> Interchanging two values.</li></ul></section>
+
+<section id="p3"><h2>3. Student Database Management</h2><p>Uses an array of structures to store roll number, name and marks.</p>
+<button class="btn" onclick="copyCode('c3')">Copy code</button>
+<pre id="c3">#include &lt;stdio.h&gt;
+struct Student { int roll; char name[50]; float marks; };
+int main() {
+    struct Student s[50];
+    int n,i;
+    printf("Enter number of students: ");
+    scanf("%d",&amp;n);
+    for(i=0;i&lt;n;i++) {
+        printf("Enter roll, name and marks: ");
+        scanf("%d %49s %f",&amp;s[i].roll,s[i].name,&amp;s[i].marks);
+    }
+    printf("\\nStudent Records\\n");
+    for(i=0;i&lt;n;i++)
+        printf("%d %s %.2f\\n",s[i].roll,s[i].name,s[i].marks);
+    return 0;
+}</pre>
+<ul class="viva"><li><b>What is a structure?</b> A user-defined data type that groups different data types.</li><li><b>Why use an array of structures?</b> To store records of many students.</li><li><b>What is a database?</b> An organized collection of data.</li><li><b>What does %f read?</b> A floating-point value.</li></ul></section>
+
+<section id="p4"><h2>4. Stack Using Array</h2><p>Stack follows LIFO: Last In, First Out.</p>
+<button class="btn" onclick="copyCode('c4')">Copy code</button>
+<pre id="c4">#include &lt;stdio.h&gt;
+#define MAX 5
+int stack[MAX], top=-1;
+void push(int x) {
+    if(top==MAX-1) printf("Stack Overflow\\n");
+    else stack[++top]=x;
+}
+void pop() {
+    if(top==-1) printf("Stack Underflow\\n");
+    else printf("Deleted: %d\\n",stack[top--]);
+}
+void display() {
+    int i;
+    if(top==-1) printf("Stack is empty\\n");
+    else for(i=top;i&gt;=0;i--) printf("%d\\n",stack[i]);
+}
+int main() {
+    push(10); push(20); push(30);
+    display(); pop(); display();
+    return 0;
+}</pre>
+<ul class="viva"><li><b>What is stack?</b> A linear data structure following LIFO.</li><li><b>What is push?</b> Inserting an element.</li><li><b>What is pop?</b> Removing the top element.</li><li><b>Overflow?</b> Trying to insert into a full stack.</li><li><b>Underflow?</b> Trying to delete from an empty stack.</li></ul></section>
+
+<section id="p5"><h2>5. Linked List Operations</h2><p>Singly linked list: each node contains data and a pointer to the next node.</p>
+<button class="btn" onclick="copyCode('c5')">Copy code</button>
+<pre id="c5">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct Node { int data; struct Node *next; };
+struct Node *head=NULL;
+void insertEnd(int x) {
+    struct Node *n=malloc(sizeof(struct Node)), *t;
+    n-&gt;data=x; n-&gt;next=NULL;
+    if(head==NULL) head=n;
+    else { t=head; while(t-&gt;next!=NULL) t=t-&gt;next; t-&gt;next=n; }
+}
+void deleteBeginning() {
+    struct Node *t;
+    if(head==NULL) printf("List is empty\\n");
+    else { t=head; head=head-&gt;next; free(t); }
+}
+void display() {
+    struct Node *t=head;
+    while(t!=NULL) { printf("%d -&gt; ",t-&gt;data); t=t-&gt;next; }
+    printf("NULL\\n");
+}
+int main() {
+    insertEnd(10); insertEnd(20); insertEnd(30);
+    display(); deleteBeginning(); display();
+    return 0;
+}</pre>
+<ul class="viva"><li><b>What is linked list?</b> A collection of nodes connected using links/pointers.</li><li><b>What is a node?</b> A data field and link field.</li><li><b>What is head?</b> Pointer to the first node.</li><li><b>What does NULL mean?</b> Pointer does not point to a valid node.</li><li><b>Array vs linked list?</b> Array uses contiguous memory; linked-list nodes need not.</li></ul></section>
+
+<section id="p6"><h2>6. Generation of Patterns</h2><h3>Right triangle and inverted triangle</h3>
+<button class="btn" onclick="copyCode('c6')">Copy code</button>
+<pre id="c6">#include &lt;stdio.h&gt;
+int main() {
+    int i,j,n;
+    printf("Enter rows: ");
+    scanf("%d",&amp;n);
+    for(i=1;i&lt;=n;i++) {
+        for(j=1;j&lt;=i;j++) printf("* ");
+        printf("\\n");
+    }
+    printf("\\nInverted pattern:\\n");
+    for(i=n;i&gt;=1;i--) {
+        for(j=1;j&lt;=i;j++) printf("* ");
+        printf("\\n");
+    }
+    return 0;
+}</pre>
+<ul class="viva"><li><b>Which loops are used?</b> Nested for loops.</li><li><b>What is an outer loop used for?</b> Controls rows.</li><li><b>What is an inner loop used for?</b> Prints symbols/columns in each row.</li><li><b>What does printf("\\n") do?</b> Moves output to the next line.</li></ul></section>
+
+<section id="p7"><h2>7. Queue Using Linked List</h2><p>Queue follows FIFO: First In, First Out.</p>
+<button class="btn" onclick="copyCode('c7')">Copy code</button>
+<pre id="c7">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct Node { int data; struct Node *next; };
+struct Node *front=NULL, *rear=NULL;
+void enqueue(int x) {
+    struct Node *n=malloc(sizeof(struct Node));
+    n-&gt;data=x; n-&gt;next=NULL;
+    if(rear==NULL) front=rear=n;
+    else { rear-&gt;next=n; rear=n; }
+}
+void dequeue() {
+    struct Node *t;
+    if(front==NULL) printf("Queue is empty\\n");
+    else {
+        t=front; printf("Deleted: %d\\n",t-&gt;data);
+        front=front-&gt;next;
+        if(front==NULL) rear=NULL;
+        free(t);
+    }
+}
+void display() {
+    struct Node *t=front;
+    while(t!=NULL) { printf("%d ",t-&gt;data); t=t-&gt;next; }
+    printf("\\n");
+}
+int main() {
+    enqueue(10); enqueue(20); enqueue(30);
+    display(); dequeue(); display();
+    return 0;
+}</pre>
+<ul class="viva"><li><b>What is queue?</b> A linear data structure following FIFO.</li><li><b>What is enqueue?</b> Insertion at rear.</li><li><b>What is dequeue?</b> Deletion from front.</li><li><b>What are front and rear?</b> Pointers to first and last queue nodes.</li></ul></section>
+
+<section id="p8"><h2>8. Height and Depth of Tree</h2><p>This example calculates binary-tree height in edges. Empty tree height is -1; a leaf has height 0.</p>
+<button class="btn" onclick="copyCode('c8')">Copy code</button>
+<pre id="c8">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct Node { int data; struct Node *left,*right; };
+int max(int a,int b) { return a&gt;b?a:b; }
+int height(struct Node *root) {
+    if(root==NULL) return -1;
+    return 1+max(height(root-&gt;left),height(root-&gt;right));
+}
+int main() {
+    struct Node *root=malloc(sizeof(struct Node));
+    root-&gt;data=1;
+    root-&gt;left=malloc(sizeof(struct Node));
+    root-&gt;left-&gt;data=2;
+    root-&gt;left-&gt;left=NULL; root-&gt;left-&gt;right=NULL;
+    root-&gt;right=malloc(sizeof(struct Node));
+    root-&gt;right-&gt;data=3;
+    root-&gt;right-&gt;left=NULL; root-&gt;right-&gt;right=NULL;
+    printf("Height = %d\\n",height(root));
+    return 0;
+}</pre>
+<ul class="viva"><li><b>What is a tree?</b> A non-linear hierarchical data structure.</li><li><b>What is root?</b> The topmost node.</li><li><b>What is a leaf?</b> A node with no children.</li><li><b>What is height?</b> Number of edges on the longest downward path to a leaf.</li><li><b>What is depth?</b> Number of edges from root to a node.</li></ul></section>
+
+<section id="p9"><h2>9. BST Traversal</h2><p>In a Binary Search Tree, smaller values go left and larger values go right. Inorder traversal gives sorted order.</p>
+<button class="btn" onclick="copyCode('c9')">Copy code</button>
+<pre id="c9">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct Node { int data; struct Node *left,*right; };
+struct Node *insert(struct Node *r,int x) {
+    if(r==NULL) {
+        r=malloc(sizeof(struct Node));
+        r-&gt;data=x; r-&gt;left=r-&gt;right=NULL;
+    } else if(x&lt;r-&gt;data) r-&gt;left=insert(r-&gt;left,x);
+    else if(x&gt;r-&gt;data) r-&gt;right=insert(r-&gt;right,x);
+    return r;
+}
+void inorder(struct Node *r) {
+    if(r) { inorder(r-&gt;left); printf("%d ",r-&gt;data); inorder(r-&gt;right); }
+}
+void preorder(struct Node *r) {
+    if(r) { printf("%d ",r-&gt;data); preorder(r-&gt;left); preorder(r-&gt;right); }
+}
+void postorder(struct Node *r) {
+    if(r) { postorder(r-&gt;left); postorder(r-&gt;right); printf("%d ",r-&gt;data); }
+}
+int main() {
+    struct Node *root=NULL;
+    root=insert(root,50); root=insert(root,30); root=insert(root,70);
+    root=insert(root,20); root=insert(root,40);
+    printf("Inorder: "); inorder(root);
+    printf("\\nPreorder: "); preorder(root);
+    printf("\\nPostorder: "); postorder(root);
+    return 0;
+}</pre>
+<ul class="viva"><li><b>What is BST?</b> A binary tree where left values are smaller and right values are larger than the node.</li><li><b>Inorder?</b> Left, Root, Right.</li><li><b>Preorder?</b> Root, Left, Right.</li><li><b>Postorder?</b> Left, Right, Root.</li><li><b>Which traversal of BST gives sorted data?</b> Inorder.</li></ul></section>
+
+<section id="p10"><h2>10. Graph Traversal – BFS and DFS</h2><p>Adjacency matrix representation. BFS uses a queue; DFS uses recursion (call stack).</p>
+<button class="btn" onclick="copyCode('c10')">Copy code</button>
+<pre id="c10">#include &lt;stdio.h&gt;
+int a[10][10], visited[10], n;
+void DFS(int v) {
+    int i;
+    printf("%d ",v);
+    visited[v]=1;
+    for(i=0;i&lt;n;i++)
+        if(a[v][i] && !visited[i]) DFS(i);
+}
+void BFS(int start) {
+    int q[10], front=0,rear=0,i,v;
+    for(i=0;i&lt;n;i++) visited[i]=0;
+    q[rear++]=start; visited[start]=1;
+    while(front&lt;rear) {
+        v=q[front++]; printf("%d ",v);
+        for(i=0;i&lt;n;i++)
+            if(a[v][i] && !visited[i]) {
+                q[rear++]=i; visited[i]=1;
+            }
+    }
+}
+int main() {
+    int i,j,start;
+    printf("Enter number of vertices: ");
+    scanf("%d",&amp;n);
+    printf("Enter adjacency matrix:\\n");
+    for(i=0;i&lt;n;i++)
+        for(j=0;j&lt;n;j++) scanf("%d",&amp;a[i][j]);
+    printf("Enter starting vertex (0 to %d): ",n-1);
+    scanf("%d",&amp;start);
+    for(i=0;i&lt;n;i++) visited[i]=0;
+    printf("DFS: "); DFS(start);
+    printf("\\nBFS: "); BFS(start);
+    return 0;
+}</pre>
+<ul class="viva"><li><b>What is graph?</b> A set of vertices connected by edges.</li><li><b>What is BFS?</b> Breadth First Search explores level by level and uses a queue.</li><li><b>What is DFS?</b> Depth First Search explores deeply before backtracking; it can use recursion or a stack.</li><li><b>What is adjacency matrix?</b> A 2D array representing connections between vertices.</li><li><b>Why visited array?</b> To avoid visiting a vertex repeatedly.</li></ul></section>
+
+<section><h2>Last-minute practical tips</h2><ul><li>Remember the basic structure: <code>#include</code>, <code>main()</code>, declarations, input, logic, output, <code>return 0;</code>.</li><li>Use <code>&amp;</code> in <code>scanf</code> for ordinary variables.</li><li>End C statements with semicolons.</li><li>For linked structures, include <code>stdlib.h</code> for <code>malloc</code> and <code>free</code>.</li><li>Compile and test each program using the exact format your lab manual expects.</li></ul></section>
+</main>
+</body></html>
